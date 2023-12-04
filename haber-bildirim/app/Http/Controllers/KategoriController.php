@@ -19,6 +19,14 @@ class KategoriController extends Controller
         return view('kategori.index', compact('kategoriler'));
     }
 
+    public function clearCache(Request $request)
+    {
+        //Cache::forget('kategoriler');
+        Cache::flush();
+        $request->session()->flash('message', 'Cache başarıyla temizlendi.');
+        return redirect()->route('kategoriler');
+    }
+
     public function kategoriEkleForm()
     {
         return view('kategori.ekle');

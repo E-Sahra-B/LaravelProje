@@ -8,6 +8,10 @@
 </head>
 
 <body>
+    <form action="{{ route('clear.cache') }}" method="post">
+        @csrf
+        <button type="submit">Clear Cache</button>
+    </form>
     @if (Session::has('message'))
         {{ Session('message') }}
     @endif

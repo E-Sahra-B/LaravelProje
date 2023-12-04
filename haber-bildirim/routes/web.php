@@ -33,3 +33,5 @@ Route::post('/kategori/ekle', [KategoriController::class, 'kategoriEkle'])->name
 Route::get('/kategori/{id}/duzenle', [KategoriController::class, 'kategoriDuzenleForm'])->name('kategori.duzenle.form');
 Route::post('/kategori/{id}/duzenle', [KategoriController::class, 'kategoriDuzenleKaydet'])->name('kategori.duzenle.kaydet');
 Route::get('/kategori/{id}/sil', [KategoriController::class, 'kategoriSil'])->name('kategori.sil');
+
+Route::post('/clear-cache', [KategoriController::class, 'clearCache'])->name('clear.cache');
