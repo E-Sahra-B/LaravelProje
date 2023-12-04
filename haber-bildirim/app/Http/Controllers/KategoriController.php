@@ -11,8 +11,11 @@ class KategoriController extends Controller
 {
     public function index()
     {
-        $kategoriler = Category::all();
-        Cache::put('kategoriler', $kategoriler, 120);
+        //$kategoriler = Category::all();
+        //Cache::put('kategoriler', $kategoriler, 120);
+        $kategoriler = Cache::remember('kategoriler', 120, function () {
+            return Category::all();
+        });
         return view('kategori.index', compact('kategoriler'));
     }
 
