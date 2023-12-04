@@ -8,6 +8,9 @@
 </head>
 
 <body>
+    @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+    @endforeach
     <h1>Kategori Ekle</h1>
 
     <form action="{{ route('kategori.ekle') }}" method="POST">

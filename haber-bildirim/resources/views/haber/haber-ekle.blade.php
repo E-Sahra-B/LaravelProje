@@ -8,14 +8,17 @@
 </head>
 
 <body>
-    @if (Session::has('message'))
+    {{-- @if (Session::has('message'))
         {{ Session('message') }}
-    @endif
+    @endif --}}
+    @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+    @endforeach
     <h1>Haber Ekle</h1>
     <form action="{{ route('haber.ekle') }}" method="POST">
         @csrf
         <label for="baslik">Başlık:</label>
-        <input type="text" name="baslik" required><br><br>
+        <input type="text" name="baslik"><br><br>
         <label for="kategori_id">Kategori:</label>
         <select name="kategori_id">
             @foreach ($kategoriler as $kategori)
@@ -23,7 +26,7 @@
             @endforeach
         </select><br><br>
         <label for="icerik">İçerik:</label>
-        <textarea name="icerik" rows="4" required></textarea><br><br>
+        <textarea name="icerik" rows="4"></textarea><br><br>
         <label for="status">Durum:</label>
         <select name="status">
             <option value="1">Aktif</option>

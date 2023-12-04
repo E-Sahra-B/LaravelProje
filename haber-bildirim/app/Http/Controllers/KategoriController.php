@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateCategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -18,12 +19,9 @@ class KategoriController extends Controller
         return view('kategori.ekle');
     }
 
-    public function kategoriEkle(Request $request)
+    public function kategoriEkle(CreateCategoryRequest $request)
     {
-        $request->validate([
-            'ad' => 'required',
-            'status' => 'in:1,0',
-        ]);
+        // $request->validate();
         try {
             Category::create([
                 'ad' => $request->ad,

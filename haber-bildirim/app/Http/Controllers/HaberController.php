@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\YeniHaberEklendi;
+use App\Events\NewsAddedEvent;
+use App\Http\Requests\CreateNewsRequest;
 use App\Models\Haber;
+use App\Models\User;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Mail;
 
 class HaberController extends Controller
 {
@@ -23,32 +24,36 @@ class HaberController extends Controller
         return view('haber.haber-ekle', ['kategoriler' => $kategoriler]);
     }
 
-    public function haberEkle(Request $request)
+    public function haberEkle(CreateNewsRequest $request)
     {
-        $request->validate([
-            'baslik' => 'required',
-            'icerik' => 'required',
-            'kategori_id' => 'required|exists:categories,id',
-            'status' => 'required|in:0,1',
-        ]);
-        $haber = Haber::create([
-            'baslik' => $request->input('baslik'),
-            'icerik' => $request->input('icerik'),
-            'kategori_id' => $request->input('kategori_id'),
-            'status' => $request->input('status'),
-        ]);
-        Mail::send(
-            'mail.template',
-            ['request' => $request],
-            function ($message) use ($request) {
-                $message->from('blank@blank.com', 'Esma Balcı');
-                $message->to('blank@gmail.com', 'Sahra Balcı');
-                $message->subject('Subject');
-            }
-        );
-        //// event(new YeniHaberEklendi($haber));
-        $request->session()->flash('message', 'Haber eklendi ve bildirim gönderildi.');
+        //$request->validate();
+        $user = new User();
+        try {
+            $haber = Haber::create([
+                'baslik' => $request->input('baslik'),
+                'icerik' => $request->input('icerik'),
+                'kategori_id' => $request->input('kategori_id'),
+                'status' => $request->input('status'),
+            ]);
+            event(new NewsAddedEvent($haber, $user));
+            $request->session()->flash('message', 'Haber eklendi ve bildirim gönderildi.');
+        } catch (\Exception $e) {
+            $request->session()->flash('message', 'Haber eklenirken bir hata oluştu.');
+        }
         return redirect()->route('haberler');
+
+        // Mail::send(
+        //     'mail.template',
+        //     ['request' => $request],
+        //     function ($message) use ($request) {
+        //         $message->from('blank@blank.com', 'Esma Balcı');
+        //         $message->to('blank@gmail.com', 'Sahra Balcı');
+        //         $message->subject('Subject');
+        //     }
+        // );
+
+        // $emailData = ['request' => $request];
+        // event(new EmailSent($emailData));
     }
 
     public function haberDuzenleForm($id)
