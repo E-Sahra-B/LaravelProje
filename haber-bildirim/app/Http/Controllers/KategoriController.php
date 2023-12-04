@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateCategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class KategoriController extends Controller
 {
     public function index()
     {
         $kategoriler = Category::all();
+        Cache::put('kategoriler', $kategoriler, 120);
         return view('kategori.index', compact('kategoriler'));
     }
 
