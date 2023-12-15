@@ -1,8 +1,12 @@
 const API_URL = process.env.API_URL;
 
 const fetchNewApi = async (pathname, id = "") => {
-  const res = await fetch(`${API_URL}/${pathname}/${id}`);
-  return res.json();
+  try {
+    const res = await fetch(`${API_URL}/${pathname}/${id}`);
+    return res.json();
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
 };
 
 const getNews = async (pathname) => {
