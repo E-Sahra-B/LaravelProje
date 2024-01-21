@@ -3,7 +3,7 @@
     <div class="card">
         <div class="card-header">Haber Düzenle</div>
         <div class="card-body">
-            <form action="{{ route('haber.duzenle.kaydet', ['id' => $haber->id]) }}" method="POST">
+            <form action="{{ route('haber.duzenle', ['id' => $haber->id]) }}" method="POST">
                 @csrf
                 <label for="baslik">Başlık:</label>
                 <input type="text" name="baslik" value="{{ $haber->baslik }}" class="form-control">

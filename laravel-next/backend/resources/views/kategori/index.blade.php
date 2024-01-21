@@ -24,7 +24,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <a href="{{ route('kategori.ekle.form') }}" class="btn btn-success btn-sm">Yeni Kategori Ekle</a>
+                        <a href="{{ route('kategori.ekle') }}" class="btn btn-success btn-sm">Yeni Kategori Ekle</a>
                         <br />
                         <br />
                         <div class="table-responsive">
@@ -44,7 +44,7 @@
                                             <td>{{ $kategori->ad }}</td>
                                             <td>{{ $kategori->status == 1 ? 'Aktif' : 'Pasif' }}</td>
                                             <td>
-                                                <a href="{{ route('kategori.duzenle.form', ['id' => $kategori->id]) }}"
+                                                <a href="{{ route('kategori.duzenle', ['id' => $kategori->id]) }}"
                                                     class="btn btn-primary btn-sm">Düzenle</a>
                                                 <a href="{{ route('kategori.sil', ['id' => $kategori->id]) }}"
                                                     onclick="return confirm('Kategoriyi silmek istediğinize emin misiniz?')"

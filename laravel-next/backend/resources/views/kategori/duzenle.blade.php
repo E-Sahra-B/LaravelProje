@@ -3,7 +3,7 @@
     <div class="card">
         <div class="card-header">Kategori Düzenle</div>
         <div class="card-body">
-            <form action="{{ route('kategori.duzenle.kaydet', ['id' => $kategori->id]) }}" method="POST">
+            <form action="{{ route('kategori.duzenle', ['id' => $kategori->id]) }}" method="POST">
                 @csrf
                 <label for="ad">Ad:</label>
                 <input type="text" name="ad" value="{{ $kategori->ad }}" class="form-control">
