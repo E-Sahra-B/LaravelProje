@@ -111,9 +111,7 @@
                         .toggleClass('btn-success', isActive);
                     toastr["success"](
                         baslik + " 'ın Status'u Başarıyla " + (isActive ? 'Aktif' :
-                            'Pasif') +
-                        " olarak güncellendi",
-                        "Başarılı")
+                            'Pasif') + " olarak güncellendi", "Başarılı")
                     toastr.options = {
                         "closeButton": true,
                         "debug": false,
