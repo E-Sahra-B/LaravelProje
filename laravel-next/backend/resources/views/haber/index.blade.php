@@ -40,7 +40,15 @@
                                             <td>{{ $haber->icerik }}</td>
                                             <td>{{ $haber->kategori->ad }}</td>
                                             <td>{{ $haber->created_at->format('d.M.Y') }}</td>
-                                            <td>{{ $haber->status == 1 ? 'Aktif' : 'Pasif' }}</td>
+                                            <td>
+                                                @if ($haber->status)
+                                                    <a href="#" class="btn btn-sm btn-success changeStatus"
+                                                        data-id="{{ $haber->id }}">Aktif</a>
+                                                @else
+                                                    <a href="#" class="btn btn-sm btn-dark changeStatus"
+                                                        data-id="{{ $haber->id }}">Pasif</a>
+                                                @endif
+                                            </td>
                                             <td>
                                                 <a href="{{ route('haber.duzenle', ['id' => $haber->id]) }}"><button
                                                         class="btn btn-primary btn-sm">Düzenle</button></a>
@@ -63,3 +71,44 @@
         </div>
     </div>
 @endsection
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script>
+    $(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $('.changeStatus').click(function(e) {
+            // e.preventDefault();
+            let dataID = $(this).data("id");
+            let self = $(this);
+            $.ajax({
+                url: "{{ route('haber.changeStatus') }}",
+                method: 'POST',
+                async: false,
+                data: {
+                    'id': dataID
+                },
+                success: function(response) {
+                    // if (response.status == 1) {
+                    //     self.html('Aktif');
+                    //     self.removeClass('btn-dark').addClass('btn-success');
+                    // } else {
+                    //     self.html('Pasif');
+                    //     self.removeClass('btn-success').addClass('btn-dark');
+                    // }
+                    var isActive = response.status == 1;
+                    self.html(isActive ? 'Aktif' : 'Pasif')
+                        .toggleClass('btn-dark', !isActive)
+                        .toggleClass('btn-success', isActive);
+                },
+                error: function(e) {
+                    console.log(e);
+                }
+            })
+
+        })
+    })
+</script>

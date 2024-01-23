@@ -83,4 +83,18 @@ class HaberController extends Controller
         // Silme işlemi başarıyla gerçekleştirildiğini kullanıcıya bildirmek için bir mesaj ekleyebilirsiniz.
         return redirect()->route('haberler')->with('message', 'Haber başarıyla silindi.');
     }
+
+    public function changeStatus(Request $request)
+    {
+        try {
+            $haberID = $request->id;
+            $haber = Haber::findOrFail($haberID);
+            $status = $haber->status;
+            $haber->status = $status ? 0 : 1;
+            $haber->save();
+            return response()->json(['message' => 'Başarılı', 'status' => $haber->status], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Hatalı Server'], 500);
+        }
+    }
 }

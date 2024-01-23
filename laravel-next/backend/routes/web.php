@@ -17,6 +17,7 @@ Route::post('/haber-ekle', [HaberController::class, 'haberEkle'])->name('haber.e
 Route::get('/haber/duzenle/{id}', [HaberController::class, 'haberDuzenleForm'])->name('haber.duzenle');
 Route::post('/haber/duzenle/{id}', [HaberController::class, 'haberDuzenleKaydet']);
 Route::get('/haber/sil/{id}', [HaberController::class, 'haberSil'])->name('haber.sil');
+Route::post('/haber/changeStatus', [HaberController::class, 'changeStatus'])->name('haber.changeStatus');
 
 //Kategori
 Route::get('/kategoriler', [KategoriController::class, 'index'])->name('kategoriler');
