@@ -110,24 +110,24 @@
                         .toggleClass('btn-dark', !isActive)
                         .toggleClass('btn-success', isActive);
                     toastr["success"](
-                        baslik + " 'ın Status'u Başarıyla " + (isActive ? 'Aktif' :
+                        baslik + " 'ın Durumu'u Başarıyla " + (isActive ? 'Aktif' :
                             'Pasif') + " olarak güncellendi", "Başarılı")
                     toastr.options = {
                         "closeButton": true,
-                        "debug": false,
-                        "newestOnTop": false,
                         "progressBar": true,
-                        "positionClass": "toast-top-right",
-                        "preventDuplicates": false,
-                        "onclick": null,
-                        "showDuration": "300",
-                        "hideDuration": "1000",
-                        "timeOut": "5000",
-                        "extendedTimeOut": "1000",
-                        "showEasing": "swing",
-                        "hideEasing": "linear",
-                        "showMethod": "fadeIn",
-                        "hideMethod": "fadeOut"
+                        "timeOut": "5000"
+                        // "debug": false,
+                        // "newestOnTop": false,
+                        // "positionClass": "toast-top-right",
+                        // "preventDuplicates": false,
+                        // "onclick": null,
+                        // "showDuration": "300",
+                        // "hideDuration": "1000",
+                        // "extendedTimeOut": "1000",
+                        // "showEasing": "swing",
+                        // "hideEasing": "linear",
+                        // "showMethod": "fadeIn",
+                        // "hideMethod": "fadeOut"
                     }
                 },
                 error: function(e) {
