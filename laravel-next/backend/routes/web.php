@@ -28,7 +28,7 @@ Route::get('/kategori/{id}/sil', [KategoriController::class, 'kategoriSil'])->na
 
 Route::get('/queue', function () {
     $user = User::find(1);
-    MailSendJob::dispatch($user);
+    MailSendJob::dispatch($user)->onQueue('high')->delay(now()->addSecond(20));
     dd("Sended E-Mail Queue");
 });
 
