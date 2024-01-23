@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HaberController;
 use App\Http\Controllers\KategoriController;
+use App\Jobs\MailSendJob;
+use App\Models\User;
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,5 +25,11 @@ Route::post('/kategori/ekle', [KategoriController::class, 'kategoriEkle']);
 Route::get('/kategori/{id}/duzenle', [KategoriController::class, 'kategoriDuzenleForm'])->name('kategori.duzenle');
 Route::post('/kategori/{id}/duzenle', [KategoriController::class, 'kategoriDuzenleKaydet']);
 Route::get('/kategori/{id}/sil', [KategoriController::class, 'kategoriSil'])->name('kategori.sil');
+
+Route::get('/queue', function () {
+    $user = User::find(1);
+    MailSendJob::dispatch($user);
+    dd("Sended E-Mail Queue");
+});
 
 Route::post('/clear-cache', [KategoriController::class, 'clearCache'])->name('clear.cache');
