@@ -13,9 +13,13 @@ class HaberController extends Controller
 {
     public function index()
     {
-        $data['haberler'] = Haber::getAllHaber();
-        $data['kategoriler'] = Category::where('status', 1)->get();
-        return view('haber.index', $data);
+        // $data['haberler'] = Haber::getAllHaber();
+        // $data['kategoriler'] = Category::where('status', 1)->get();
+        // $haberler = Haber::with(['kategori:id,ad'])
+        //     ->where('status', 1)
+        //     ->get();
+        $haberler = Haber::with(['kategori:id,ad'])->get();
+        return view('haber.index', compact('haberler'));
     }
 
     public function getNews()

@@ -16,11 +16,12 @@ class Haber extends Model
     public static function getAllHaber()
     {
         return self::all();
+        // return self::where('status', 1)->get();
     }
 
     public function kategori()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'kategori_id')->where('status', 1);
     }
 
     public function getCreatedAtAttribute($value)

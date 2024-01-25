@@ -37,8 +37,8 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $haber->baslik }}</td>
-                                            <td>{{ $haber->icerik }}</td>
-                                            <td>{{ $haber->kategori->ad }}</td>
+                                            <td>{{ Str::substr($haber->icerik, 0, 20) }}</td>
+                                            <td>{{ $haber->kategori?->ad }}</td>
                                             <td>{{ $haber->created_at }}</td>
                                             <td>
                                                 @if ($haber->status)
