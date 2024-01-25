@@ -39,7 +39,7 @@
                                             <td>{{ $haber->baslik }}</td>
                                             <td>{{ $haber->icerik }}</td>
                                             <td>{{ $haber->kategori->ad }}</td>
-                                            <td>{{ $haber->created_at->format('d.M.Y') }}</td>
+                                            <td>{{ $haber->created_at }}</td>
                                             <td>
                                                 @if ($haber->status)
                                                     <a href="#" class="btn btn-sm btn-success changeStatus"
