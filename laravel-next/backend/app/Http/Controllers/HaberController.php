@@ -41,14 +41,16 @@ class HaberController extends Controller
     public function haberEkle(CreateNewsRequest $request)
     {
         $user = new User();
+        $image = $request->file('image')->store('public/haber');
         try {
             $haber = Haber::create([
                 'baslik' => $request->input('baslik'),
                 'icerik' => $request->input('icerik'),
                 'kategori_id' => $request->input('kategori_id'),
                 'status' => $request->input('status'),
+                'image' => $image
             ]);
-            event(new NewsAddedEvent($haber, $user));
+            //event(new NewsAddedEvent($haber, $user));
             $request->session()->flash('message', 'Haber eklendi ve bildirim gönderildi.');
         } catch (\Exception $e) {
             $request->session()->flash('message', 'Haber eklenirken bir hata oluştu.');
