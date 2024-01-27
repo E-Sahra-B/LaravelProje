@@ -10,7 +10,7 @@
                 @csrf
                 <label for="baslik">Başlık:</label>
                 <input type="text" name="baslik"
-                    class="form-control @if ($errors->has('baslik')) border-danger @endif">
+                    class="form-control @if ($errors->has('baslik')) border-danger @endif" value="{{ old('baslik') }}">
                 @if ($errors->has('baslik'))
                     <span class="text-danger">{{ $errors->first('baslik') }}</span><br>
                 @endif
@@ -18,7 +18,9 @@
                 <label for="kategori_id">Kategori:</label>
                 <select name="kategori_id" class="form-control @if ($errors->has('kategori_id')) border-danger @endif">
                     @foreach ($kategoriler as $kategori)
-                        <option value="{{ $kategori->id }}">{{ $kategori->ad }}</option>
+                        <option value="{{ $kategori->id }}" @if (old('kategori_id') == $kategori->id) selected @endif>
+                            {{ $kategori->ad }}
+                        </option>
                     @endforeach
                 </select>
                 @if ($errors->has('kategori_id'))
@@ -33,16 +35,16 @@
                 @endif
 
                 <label for="icerik">İçerik:</label>
-                <textarea name="icerik" rows="4" class="form-control @if ($errors->has('icerik')) border-danger @endif"></textarea>
+                <textarea name="icerik" rows="4" class="form-control @if ($errors->has('icerik')) border-danger @endif">{{ old('icerik') }}</textarea>
                 @if ($errors->has('icerik'))
                     <span class="text-danger">{{ $errors->first('icerik') }}</span><br>
                 @endif
 
                 <label for="status">Durum:</label>
                 <select name="status" class="form-control @if ($errors->has('status')) border-danger @endif">
-                    <option value="1">Aktif</option>
-                    <option value="0">Pasif</option>
-                </select><br>
+                    <option value="1" @if (old('status') == '1') selected @endif>Aktif</option>
+                    <option value="0" @if (old('status') == '0') selected @endif>Pasif</option>
+                </select>
                 @if ($errors->has('status'))
                     <span class="text-danger">{{ $errors->first('status') }}</span><br>
                 @endif
