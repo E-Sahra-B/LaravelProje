@@ -24,6 +24,7 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
+                                        <th>Resim</th>
                                         <th>Başlık</th>
                                         <th>İçerik</th>
                                         <th>Kategori</th>
@@ -36,6 +37,10 @@
                                     @forelse ($haberler as $haber)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
+                                            <td>
+                                                <img src="{{ $haber->image ? Storage::url($haber->image) : asset('storage/haber/default.jpg') }}"
+                                                    alt="{{ $haber->baslik }}" height="50" width="50">
+                                            </td>
                                             <td>{{ $haber->baslik }}</td>
                                             <td>{{ Str::substr($haber->icerik, 0, 20) }}</td>
                                             <td>{{ $haber->kategori?->ad }}</td>

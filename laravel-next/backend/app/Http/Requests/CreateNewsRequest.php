@@ -19,6 +19,7 @@ class CreateNewsRequest extends FormRequest
             'icerik' => 'required',
             'kategori_id' => 'required|exists:categories,id',
             'status' => 'required|in:0,1',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 
@@ -30,7 +31,11 @@ class CreateNewsRequest extends FormRequest
             'kategori_id.required' => "Kategorilerden birini seçmeden kaydettiremezsiniz",
             'kategori_id.exists' => "Seçilen Kategori Mevcut Değil",
             'status.required' => "Durumu Seçmeden Kaydetmeye Çalıştınız",
-            'status.in' => "Hatalı Durum Seçiminde Bulundunuz"
+            'status.in' => "Hatalı Durum Seçiminde Bulundunuz",
+            'image.required' => "Lütfen Resim Yükleyiniz",
+            'image.image' => "Yüklenecek Dosya Bir Resim Olmalıdır.",
+            'image.mimes' => "Resimler için İzin Verilen Türler jpeg, png, jpg ve gif olmalıdır",
+            'image.max' => "Yüklemeye Çalıştığınız Resim 2MB'tan Büyük"
         ];
     }
 }

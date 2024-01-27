@@ -8,6 +8,8 @@ use App\Models\Haber;
 use App\Models\User;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Spatie\Backtrace\File;
 
 class HaberController extends Controller
 {
@@ -41,14 +43,10 @@ class HaberController extends Controller
     public function haberEkle(CreateNewsRequest $request)
     {
         $user = new User();
-        $image = $request->file('image')->store('public/haber');
         try {
-            $haber = Haber::create([
-                'baslik' => $request->input('baslik'),
-                'icerik' => $request->input('icerik'),
-                'kategori_id' => $request->input('kategori_id'),
-                'status' => $request->input('status'),
-                'image' => $image
+            $imagePath = $request->file('image')->store('public/haber');
+            $haber = Haber::create($request->except('image') + [
+                'image' => $imagePath
             ]);
             //event(new NewsAddedEvent($haber, $user));
             $request->session()->flash('message', 'Haber eklendi ve bildirim gönderildi.');
@@ -67,15 +65,21 @@ class HaberController extends Controller
 
     public function haberDuzenleKaydet(Request $request, $id)
     {
-        $haber = Haber::find($id);
-        $haber->update([
-            'baslik' => $request->input('baslik'),
-            'icerik' => $request->input('icerik'),
-            'kategori_id' => $request->input('kategori_id'),
-            'status' => $request->input('status'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-        $request->session()->flash('message', 'Haber başarıyla düzenlendi.');
+        try {
+            $haber = Haber::find($id);
+            $oldImagePath = $request->input('oldimage');
+            if ($request->hasFile('image')) {
+                $newImagePath = $request->file('image')->store('public/haber');
+                if ($oldImagePath && Storage::exists($oldImagePath)) {
+                    Storage::delete($oldImagePath);
+                }
+                $haber->update(['image' => $newImagePath]);
+            }
+            $haber->update($request->except('image'));
+            $request->session()->flash('message', 'Haber başarıyla düzenlendi.');
+        } catch (\Exception $e) {
+            $request->session()->flash('message', 'Haber güncellenirken bir hata oluştu.');
+        }
         return redirect()->route('haberler');
     }
 

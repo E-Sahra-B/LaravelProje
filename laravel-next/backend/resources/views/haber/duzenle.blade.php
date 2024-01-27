@@ -3,7 +3,7 @@
     <div class="card">
         <div class="card-header">Haber Düzenle</div>
         <div class="card-body">
-            <form action="{{ route('haber.duzenle', ['id' => $haber->id]) }}" method="POST">
+            <form action="{{ route('haber.duzenle', ['id' => $haber->id]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <label for="baslik">Başlık:</label>
                 <input type="text" name="baslik" value="{{ $haber->baslik }}" class="form-control">
@@ -15,6 +15,11 @@
                         </option>
                     @endforeach
                 </select>
+                <img src="{{ $haber->image ? Storage::url($haber->image) : asset('storage/haber/default.jpg') }}"
+                    alt="{{ $haber->baslik }}" class="w-25 img-fluid  img-thumbnail">
+                <input type="hidden" name="oldimage" value="{{ $haber->image }}"><br>
+                <label for="image">Resim:</label>
+                <input type="file" name="image" class="form-control">
                 <label for="icerik">İçerik:</label>
                 <textarea name="icerik" rows="4" class="form-control">{{ $haber->icerik }}</textarea>
 
