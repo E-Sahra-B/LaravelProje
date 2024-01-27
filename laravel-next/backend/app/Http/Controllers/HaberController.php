@@ -85,13 +85,19 @@ class HaberController extends Controller
 
     public function haberSil($id)
     {
-        $haber = Haber::find($id);
-        if (!$haber) {
-            return redirect()->route('haberler')->with('message', 'Haber bulunamadı.');
+        try {
+            $haber = Haber::find($id);
+
+            $imagePath = $haber->image;
+            if ($imagePath && Storage::exists($imagePath)) {
+                Storage::delete($imagePath);
+            }
+
+            $haber->delete();
+            return redirect()->route('haberler')->with('message', 'Haber başarıyla silindi.');
+        } catch (\Exception $e) {
+            return redirect()->route('haberler')->with('message', 'Haber silinirken bir hata oluştu.');
         }
-        $haber->delete();
-        // Silme işlemi başarıyla gerçekleştirildiğini kullanıcıya bildirmek için bir mesaj ekleyebilirsiniz.
-        return redirect()->route('haberler')->with('message', 'Haber başarıyla silindi.');
     }
 
     public function changeStatus(Request $request)
