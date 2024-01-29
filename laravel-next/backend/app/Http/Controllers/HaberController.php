@@ -36,8 +36,10 @@ class HaberController extends Controller
 
     public function haberEkleForm()
     {
-        $kategoriler = Category::where('status', 1)->get();
-        return view('haber.haber-ekle', ['kategoriler' => $kategoriler]);
+        // $kategoriler = Category::where('status', 1)->get();
+        // return view('haber.haber-ekle', ['kategoriler' => $kategoriler]);
+        $kategorilerOptions = Category::where('status', 1)->pluck('ad', 'id');
+        return view('haber.haber-ekle', compact('kategorilerOptions'));
     }
 
     public function haberEkle(CreateNewsRequest $request)

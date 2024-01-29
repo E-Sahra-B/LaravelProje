@@ -15,17 +15,7 @@
                     <span class="text-danger">{{ $errors->first('baslik') }}</span><br>
                 @endif
 
-                <label for="kategori_id">Kategori:</label>
-                <select name="kategori_id" class="form-control @if ($errors->has('kategori_id')) border-danger @endif">
-                    @foreach ($kategoriler as $kategori)
-                        <option value="{{ $kategori->id }}" @if (old('kategori_id') == $kategori->id) selected @endif>
-                            {{ $kategori->ad }}
-                        </option>
-                    @endforeach
-                </select>
-                @if ($errors->has('kategori_id'))
-                    <span class="text-danger">{{ $errors->first('kategori_id') }}</span><br>
-                @endif
+                <x-category-select :name="'kategori_id'" :label="'Kategori'" :errors="$errors" :options="$kategorilerOptions" />
 
                 <label for="image">Resim:</label>
                 <input type="file" name="image"
