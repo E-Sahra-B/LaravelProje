@@ -38,8 +38,9 @@ class HaberController extends Controller
     {
         // $kategoriler = Category::where('status', 1)->get();
         // return view('haber.haber-ekle', ['kategoriler' => $kategoriler]);
-        $kategorilerOptions = Category::where('status', 1)->pluck('ad', 'id');
-        return view('haber.haber-ekle', compact('kategorilerOptions'));
+        // $kategorilerOptions = Category::where('status', 1)->pluck('ad', 'id');
+        // return view('haber.haber-ekle', compact('kategorilerOptions'));
+        return view('haber.haber-ekle');
     }
 
     public function haberEkle(CreateNewsRequest $request)
