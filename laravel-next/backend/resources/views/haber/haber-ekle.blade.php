@@ -15,7 +15,7 @@
                     <span class="text-danger">{{ $errors->first('baslik') }}</span><br>
                 @endif
 
-                <x-category-select :name="'kategori_id'" :label="'Kategori'" :errors="$errors" :options="$kategorilerOptions" />
+                <x-category-select :name="'kategori_id'" :label="'Kategori'" :errors="$errors" :data="null" />
 
                 <label for="image">Resim:</label>
                 <input type="file" name="image"

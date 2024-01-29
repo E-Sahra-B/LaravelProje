@@ -61,7 +61,7 @@ class HaberController extends Controller
 
     public function haberDuzenleForm($id)
     {
-        $data['kategoriler'] = Category::where('status', 1)->get();
+        // $data['kategoriler'] = Category::where('status', 1)->get();
         $data['haber'] = Haber::find($id);
         return view('haber.duzenle', $data);
     }

@@ -31,6 +31,6 @@ class AppServiceProvider extends ServiceProvider
         // View::composer(['haber.haber-ekle'], function ($view) {
         //     $view->with('kategorilerOptions', Category::where('status', 1)->pluck('ad', 'id'));
         // });
-        View::composer(['haber.haber-ekle'], CategoryComposer::class);
+        View::composer(['components.category-select'], CategoryComposer::class);
     }
 }

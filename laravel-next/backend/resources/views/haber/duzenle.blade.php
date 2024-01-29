@@ -7,14 +7,9 @@
                 @csrf
                 <label for="baslik">Başlık:</label>
                 <input type="text" name="baslik" value="{{ $haber->baslik }}" class="form-control">
-                <label for="kategori_id">Kategori:</label>
-                <select name="kategori_id" class="form-control">
-                    @foreach ($kategoriler as $kategori)
-                        <option value="{{ $kategori->id }}" {{ $kategori->id == $haber->kategori_id ? 'selected' : '' }}>
-                            {{ $kategori->ad }}
-                        </option>
-                    @endforeach
-                </select>
+
+                <x-category-select :name="'kategori_id'" :label="'Kategori'" :errors="$errors" :data="$haber->kategori_id" /><br>
+
                 <img src="{{ $haber->image ? Storage::url($haber->image) : asset('storage/haber/default.jpg') }}"
                     alt="{{ $haber->baslik }}" class="w-25 img-fluid  img-thumbnail">
                 <input type="hidden" name="oldimage" value="{{ $haber->image }}"><br>

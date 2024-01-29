@@ -1,10 +1,10 @@
-@props(['name', 'label', 'options', 'errors'])
+@props(['name', 'label', 'errors', 'data'])
 
 <div>
     <label for="{{ $name }}">{{ $label }}:</label>
     <select name="{{ $name }}" {{ $attributes->merge(['class' => 'form-control ']) }}>
-        @foreach ($options as $key => $value)
-            <option value="{{ $key }}" @if (old($name) == $key) selected @endif>
+        @foreach ($kategorilerOptions as $key => $value)
+            <option value="{{ $key }}" @if (($data != '' && $data == $key) || old($name) == $key) selected @endif>
                 {{ $value }}
             </option>
         @endforeach
