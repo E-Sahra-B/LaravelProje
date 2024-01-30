@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Haber extends Model
@@ -28,5 +29,10 @@ class Haber extends Model
     {
         // return Carbon::parse($value)->format('d.M.Y H:i');
         return Carbon::parse($value)->isoFormat('DD MMMM YYYY');
+    }
+
+    public function image(): MorphMany
+    {
+        return $this->morphMany(Image::class, 'imageable');
     }
 }

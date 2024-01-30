@@ -20,7 +20,7 @@ class HaberController extends Controller
         // $haberler = Haber::with(['kategori:id,ad'])
         //     ->where('status', 1)
         //     ->get();
-        $haberler = Haber::with(['kategori:id,ad'])->get();
+        $haberler = Haber::with(['kategori:id,ad', 'image'])->get();
         return view('haber.index', compact('haberler'));
     }
 
@@ -47,10 +47,12 @@ class HaberController extends Controller
     {
         $user = new User();
         try {
-            $imagePath = $request->file('image')->store('public/haber');
-            $haber = Haber::create($request->except('image') + [
-                'image' => $imagePath
-            ]);
+            // $imagePath = $request->file('image')->store('public/haber');
+            // $haber = Haber::create($request->except('image') + [
+            //     'image' => $imagePath
+            // ]);
+            $haber = Haber::create($request->except('image'));
+            $haber->image()->create(['url' => $request->file('image')->store('public/haber')]);
             //event(new NewsAddedEvent($haber, $user));
             $request->session()->flash('message', 'Haber eklendi ve bildirim gönderildi.');
         } catch (\Exception $e) {
